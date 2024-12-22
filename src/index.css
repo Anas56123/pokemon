@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.electric{
+  background: linear-gradient(180deg, #FFE34C 0%, #1D1900 93.5%);
+  box-shadow: 2px 2px 9px 0px #FFF1A5;
+}
+
+.electric-reverse{
+  background: linear-gradient(180deg, #1D1900 44.69%, #FFE34C 142.6%);
+  box-shadow: 2px 2px 9px 0px #FFF1A5;
+}
+
+.fire{
+  background: linear-gradient(180deg, #EE4400 0%, #210900 100%);
+  box-shadow: 2px 2px 9px 0px #FFAC8B;
+}
+
+.fire-reverse{
+  background: linear-gradient(180deg, #210900 44.69%, #EE4400 142.6%);
+  box-shadow: 2px 2px 9px 0px #FFAC8B;
+}
+
+.water{
+  background: linear-gradient(180deg, #69D4FF 0%, #00151D 100%);
+  box-shadow: 2px 2px 9px 0px #B5E7FC;
+}
+
+.water-reverse{
+  background: linear-gradient(180deg, #00151D 44.69%, #69D4FF 142.6%);
+  box-shadow: 2px 2px 9px 0px #B5E7FC;
+}
+
+.grass{
+  background: linear-gradient(180deg, #76DD8C 0%, #000E03 100%);
+  box-shadow: 2px 2px 9px 0px #BFFFCC;
+}
+
+.grass-reverse{
+  background: linear-gradient(180deg, #000E03 44.69%, #76DD8C 142.6%);
+  box-shadow: 2px 2px 9px 0px #BFFFCC;
+}
+
+.dragon{
+  background: linear-gradient(180deg, #0058D4 0%, #001027 100%);
+  box-shadow: 2px 2px 9px 0px #D0E4FF;
+}
+
+.dragon-reverse{
+  background: linear-gradient(180deg, #001027 44.69%, #0058D4 142.6%);
+  box-shadow: 2px 2px 9px 0px #D0E4FF;
+}
+
+.ice{
+  background: linear-gradient(180deg, #56FFDF 0%, #003027 100%);
+  box-shadow: 2px 2px 9px 0px #B5E7FC;
+}
+
+.ice-reverse{
+  background: linear-gradient(180deg, #003027 44.69%, #56FFDF 142.6%);
+  box-shadow: 2px 2px 9px 0px #B5E7FC;
+}
+
+.fairy{
+  background: linear-gradient(180deg, #FF76FD 0%, #260025 93.5%);
+  box-shadow: 2px 2px 9px 0px #FFC2FE;
+}
+
+.fairy-reverse{
+  background: linear-gradient(180deg, #260025 44.69%, #FF76FD 142.6%);
+  box-shadow: 2px 2px 9px 0px #FFC2FE;
+}
+
+.poison{
+  background: linear-gradient(180deg, #CE88EE 0%, #28003A 93.5%);
+  box-shadow: 2px 2px 9px 0px #E19DFF;
+}
+
+.poison-reverse{
+  background: linear-gradient(180deg, #28003A 44.69%, #CE88EE 142.6%);
+  box-shadow: 2px 2px 9px 0px #E19DFF;
+}
+
+.psychic{
+  background: linear-gradient(180deg, #FF8078 0%, #361917 100%);
+  box-shadow: 2px 2px 9px 0px #FFA6A0;
+}
+
+.psychic-reverse{
+  background: linear-gradient(180deg, #361917 44.69%, #FF8078 142.6%);
+  box-shadow: 2px 2px 9px 0px #FFA6A0;
+}
+
+.card{
+  height: 527px;
+  width: 382px;
+  border-radius: 45px;
+  margin: 1px;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
+}
+
+.front{
+  backface-visibility: hidden;
+}
+
+.back{
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.cardFlip{
+  transform: rotateY(180deg);
+}

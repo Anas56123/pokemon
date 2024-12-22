@@ -1,0 +1,1 @@
+the api key is: https://pokeapi.co/api/v2/pokemon/ditto
