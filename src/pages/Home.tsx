@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import PokemonCard from "../components/PokemonCard";
-import fetchPokemons from "../Data/fetchPokemons";
 import { useState } from "react";
+import { Input } from "antd";
+import { Search } from "lucide-react";
 
 interface Pokemon {
   name: string;
@@ -33,7 +34,9 @@ const Home = () => {
   const { data: allPokemonData, isLoading: isLoadingAll } = useQuery({
     queryKey: ["allPokemons"],
     queryFn: async () => {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000");
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?limit=1000"
+      );
       const data = await response.json();
       return data.results;
     },
@@ -64,15 +67,17 @@ const Home = () => {
   );
 
   // Filter Pokemon based on search term and selected types
-  const filteredPokemon = allPokemonDetails?.filter((pokemon: PokemonDetailed) => {
-    const matchesSearch = pokemon.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesTypes =
-      selectedTypes.length === 0 ||
-      pokemon.types.some((t) => selectedTypes.includes(t.type.name));
-    return matchesSearch && matchesTypes;
-  });
+  const filteredPokemon = allPokemonDetails?.filter(
+    (pokemon: PokemonDetailed) => {
+      const matchesSearch = pokemon.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesTypes =
+        selectedTypes.length === 0 ||
+        pokemon.types.some((t) => selectedTypes.includes(t.type.name));
+      return matchesSearch && matchesTypes;
+    }
+  );
 
   // Calculate pagination
   const totalPages = Math.ceil((filteredPokemon?.length || 0) / limit);
@@ -83,9 +88,7 @@ const Home = () => {
 
   const toggleType = (type: string) => {
     setSelectedTypes((prev) =>
-      prev.includes(type)
-        ? prev.filter((t) => t !== type)
-        : [...prev, type]
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     );
   };
 
@@ -93,12 +96,13 @@ const Home = () => {
     <div className="p-4">
       {/* Add search input */}
       <div className="mb-4">
-        <input
+        <Input
           type="text"
           placeholder="Search Pokemon..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-2 border rounded"
+          prefix={<Search />}
         />
       </div>
 
@@ -116,7 +120,18 @@ const Home = () => {
           // >
           //   {type}
           // </button>
-          <div className={`${type}-btn capitalize btn flex`}><img src={`../../public/assets/icons/${type}.svg`} alt="" />{type}</div>
+          <button
+            key={type}
+            onClick={() => toggleType(type)}
+            className={`${type}-btn capitalize btn flex ${
+              selectedTypes.includes(type)
+                ? "bg-black text-white"
+                : "bg-gray-700"
+            }`}
+          >
+            <img src={`../../public/assets/icons/${type}.svg`} alt="" />
+            {type}
+          </button>
         ))}
       </div>
 
