@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background: linear-gradient(180deg, #040917 26.22%, #00485F 133.09%);
+}
+
+.grid-me{
+  grid-template-columns: repeat(3, minmax(0, 1300px));
+  grid-template-rows: repeat(2, minmax(0, 550px));
+}
+
 .electric{
   background: linear-gradient(180deg, #FFE34C 0%, #1D1900 93.5%);
   box-shadow: 2px 2px 9px 0px #FFF1A5;
@@ -487,4 +496,8 @@
 
 .p-block-15-px{
   padding-block: 15px;
+}
+
+.bg-blue-me{
+  background-color: rgb(59, 85, 101);
 }
