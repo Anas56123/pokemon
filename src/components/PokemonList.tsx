@@ -32,7 +32,7 @@ const PokemonList = () => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const limit = 6;
 
-  const { data: allPokemonData, isLoading: isLoadingAll } = useQuery({
+  const { data: allPokemonData } = useQuery({
     queryKey: ["allPokemons"],
     queryFn: async () => {
       const response = await fetch(

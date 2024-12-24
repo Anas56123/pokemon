@@ -32,12 +32,9 @@ const PokemonCard = ({ data, isLoading, error }: {
 }) => {
   const [activeCard, setActiveCard] = useState(false);
   const [stats, setStats] = useState<Stat | null>(null);
-  const [statsLoading, setStatsLoading] = useState(false);
-  const [statsError, setStatsError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
-      setStatsLoading(true);
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${data.id}`);
         if (!response.ok) {
@@ -46,9 +43,7 @@ const PokemonCard = ({ data, isLoading, error }: {
         const statsData = await response.json();
         setStats(statsData);
       } catch (err) {
-        setStatsError(err instanceof Error ? err : new Error('Failed to fetch stats'));
-      } finally {
-        setStatsLoading(false);
+        console.error('Error loading stats:', err);
       }
     };
 
@@ -90,25 +85,29 @@ const PokemonCard = ({ data, isLoading, error }: {
                   Base Stats
                 </h1>
                 <div className="flex flex-col gap-4 p-8">
-                  {stats?.stats.map((stat) => {
-                    const howManySlots = Math.round((stat.base_stat * 15)/100) >= 15 ? 15 : Math.round((stat.base_stat * 15)/100)
-                    const howManySlotsLeft = 15 - howManySlots
-                    const activeSlots = genarateSlots(howManySlots, data)
-                    const emptySlots = genarateEmptySlots(howManySlotsLeft, data)
-                    return (
-                    <div key={stat.stat.name} className="flex items-center gap-2">
-                      <div className="flex items-center justify-between w-1/3">
-                        <span className="font-montserrat font-medium capitalize text-white">{stat.stat.name == 'special-attack'? 'Sp. Atk' :stat.stat.name == 'special-defense'? 'Sp. Def' : stat.stat.name == 'hp'? 'HP' : stat.stat.name}</span>
-                        <span className="font-montserrat font-bold text-white">{stat.base_stat}</span>
+                  {stats ? (
+                    stats.stats.map((stat) => {
+                      const howManySlots = Math.round((stat.base_stat * 15)/100) >= 15 ? 15 : Math.round((stat.base_stat * 15)/100)
+                      const howManySlotsLeft = 15 - howManySlots
+                      const activeSlots = genarateSlots(howManySlots, data)
+                      const emptySlots = genarateEmptySlots(howManySlotsLeft, data)
+                      return (
+                      <div key={stat.stat.name} className="flex items-center gap-2">
+                        <div className="flex items-center justify-between w-1/3">
+                          <span className="font-montserrat font-medium capitalize text-white">{stat.stat.name == 'special-attack'? 'Sp. Atk' :stat.stat.name == 'special-defense'? 'Sp. Def' : stat.stat.name == 'hp'? 'HP' : stat.stat.name}</span>
+                          <span className="font-montserrat font-bold text-white">{stat.base_stat}</span>
+                        </div>
+                        <div className="flex gap-1">
+                        {activeSlots}
+                        {emptySlots}
+                        </div>
                       </div>
-                      <div className="flex gap-1">
-                      {activeSlots}
-                      {emptySlots}
-                      </div>
-                    </div>
-                  )})}
+                    )})
+                  ) : (
+                    <div className="text-white text-center">Loading stats...</div>
+                  )}
                   <div className="flex items-center h-32">
-                    <div className=" border-r border-white pr-10 p-block-15-px">
+                    <div className="border-r border-white pr-10 p-block-15-px">
                       <p className="font-montserrat font-medium text-white">Height: {data.height /10} m</p>
                       <p className="font-montserrat font-medium text-white">Weight: {data.weight /10} kg</p>
                     </div>
@@ -127,18 +126,18 @@ const PokemonCard = ({ data, isLoading, error }: {
 
 export default PokemonCard;
 
-const genarateSlots = (howManySlots:number, data:any) => {
+const genarateSlots = (howManySlots: number, data: Pokemon) => {
   const x = []
-for(let i=0 ; i < howManySlots;i++){
-  x.push(<div className={`slot slot-${data.types[0].type.name}`}></div>)
-}
-return x
+  for(let i=0 ; i < howManySlots;i++){
+    x.push(<div className={`slot slot-${data.types[0].type.name}`}></div>)
+  }
+  return x
 }
 
-  const genarateEmptySlots = (howManySlotsLeft:number, data:any ) => {
+const genarateEmptySlots = (howManySlotsLeft: number, data: Pokemon) => {
   const x = []
-for(let e=0 ; e < howManySlotsLeft;e++){
-  x.push(<div className={`slot slot-${data.types[0].type.name}-empty`}></div>)
-}
-return x
+  for(let e=0 ; e < howManySlotsLeft;e++){
+    x.push(<div className={`slot slot-${data.types[0].type.name}-empty`}></div>)
+  }
+  return x
 }
