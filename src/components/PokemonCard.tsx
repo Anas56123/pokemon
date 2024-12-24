@@ -57,8 +57,6 @@ const PokemonCard = ({ data, isLoading, error }: {
   if (isLoading) return <div>Loading...</div>;
   if (error instanceof Error) return <div>Error: {error.message}</div>;
 
-  console.log(data);
-
   return (
     <>
         <div className="min-h-fit flex items-center justify-center py-8">
