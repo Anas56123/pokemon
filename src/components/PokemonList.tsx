@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import PokemonCard from "./PokemonCard";
 import { useState } from "react";
 import { Input } from "antd";
-import { Search } from "lucide-react";
+import search from '../../public/assets/icons/fi-rr-search.svg'
 
 interface Pokemon {
   name: string;
@@ -92,22 +92,24 @@ const PokemonList = () => {
   };
 
   return (
-    <div className="p-4 w-[1300px]">
-      <div className="mb-4">
+    <div className="p-4 w-[1300px] flex flex-col items-center">
+      <div className="mb-4 w-1/2">
+      <p className="relative">
+      <img src={search} alt="" className="absolute right-[15px] top-1/2 -translate-y-1/2 z-10" />
         <Input
           type="text"
-          placeholder="Search Pokemon..."
+          placeholder="Catch 'em all by searching here..."
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
             setPage(1);
           }}
-          className="w-full p-2 border rounded"
-          prefix={<Search />}
+          className="w-full h-[45px] py-[15px] px-[30px] border rounded-xl input-search"
         />
+      </p>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 flex flex-wrap gap-2 w-1/2 justify-center">
         {allTypes.map((type) => (
           <button
             key={type}
